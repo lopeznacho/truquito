@@ -1,0 +1,2 @@
+# truquito
+Colorado puto
