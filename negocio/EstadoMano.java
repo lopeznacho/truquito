@@ -35,6 +35,13 @@ public class EstadoMano {
 		this.estados[posicionJugador].mostrarCartasDisponibles();
 		
 	}
+	public String getCartasJugadorString(int posicionJugador) {
+		return this.estados[posicionJugador].getCartasString();
+		
+	}
+	public String getCartasDisponiblesJugadorString(int posicionJugador) {
+		return this.estados[posicionJugador].getCartasDisponiblesString();
+	}
 
 	public boolean puedeJugarCarta(int posicionJugador, int posicionCarta) {
 		if(posicionCarta>=0 && posicionCarta <3){
@@ -144,6 +151,8 @@ public int getEquipoGanadorBaza(int nroBaza) {
 		}
 		return -1; // TODO : revisar
 	}
+
+	
 	
 	
 

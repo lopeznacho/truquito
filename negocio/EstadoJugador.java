@@ -69,6 +69,24 @@ public class EstadoJugador {
 		System.out.println();
 	}
 	
+	public String getCartasString() {
+		String a = "";
+		for( int i = 0 ; i < cartas.size() ; i++ ){
+			  a+=( cartas.get(i).getString() + " - " );
+			}
+		return a;
+	}
+	public String getCartasDisponiblesString() {
+		String a="";
+		for( int i = 0 ; i < cartas.size() ; i++ ){
+			if(!cartas.get(i).estaUsada()){
+				a+="Carta "+(i+1)+" : ";
+				a+= cartas.get(i).getString() + " - " ;
+			}
+		}
+		return a;
+	}
+	
 	public void mostrarCartasDisponibles() {
 		for( int i = 0 ; i < cartas.size() ; i++ ){
 			if(!cartas.get(i).estaUsada()){

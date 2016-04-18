@@ -1,5 +1,6 @@
 package test;
 
+import ejemplo.observer.gui.VentanaPersonas;
 import negocio.Carta;
 import negocio.Equipo;
 import negocio.JugadorTruco;
@@ -18,6 +19,8 @@ public class Main {
 		
 		Equipo equipo1 = new Equipo(jugador1, jugador2);
 		Equipo equipo2 = new Equipo(jugador3, jugador4);
+		
+		//new VentanaPersonas(1);
 		
 		Partido partido = new Partido(equipo1, equipo2,"Modalidad 1");
 		

@@ -8,7 +8,10 @@ import java.util.Random;
 
 import javax.naming.ldap.Rdn;
 
-public class ManoTruco {
+import ejemplo.observer.gui.VentanaPersonas;
+import ejemplo.observer.observer.Observable;
+
+public class ManoTruco extends Observable{
 	
 	private Mazo mazo;
 	//private EstadoJugador[] estados;
@@ -24,16 +27,19 @@ public class ManoTruco {
 
 	public ManoTruco(ArrayList<JugadorTruco>jugadores){
 		this.jugadores= jugadores;
-		//this.posicionJugadorMano=0;
+		for(int i = 0 ; i<4; i++)
+			this.registrarObserver(new VentanaPersonas(this.jugadores.get(i).getApodo()));
 	}
 
 
 	public void iniciarMano(int nroMano) {
 		//this.turno=0;
 		
-		System.out.println();
+		
+		/*System.out.println();
 		System.out.println("Iniciando mano "+nroMano);
-		System.out.println();
+		System.out.println();*/
+		this.notificarObservers("Iniciando mano "+(nroMano+1));
 		
 		this.nroMano=nroMano;
 		this.nroBaza=0;
@@ -48,12 +54,16 @@ public class ManoTruco {
 		this.asignarJugadorMano();
 		this.pies= this.getPies();
 		
-		System.out.println();
-		System.out.println("Jugador Mano "+jugadores.get(this.estadoMano.getPosicionJugadorMano()).getApodo());
-		System.out.println();
+		//System.out.println();
+		//System.out.println("Jugador Mano "+jugadores.get(this.estadoMano.getPosicionJugadorMano()).getApodo());
+		this.notificarObservers("Jugador Mano "+jugadores.get(this.estadoMano.getPosicionJugadorMano()).getApodo());
+	/*	System.out.println();
 		System.out.println();
 		System.out.println("Jugadores Pie "+jugadores.get(this.pies[0]).getApodo());
-		System.out.println("Jugadores Pie "+jugadores.get(this.pies[1]).getApodo());
+		
+		System.out.println("Jugadores Pie "+jugadores.get(this.pies[1]).getApodo());*/
+		this.notificarObservers("Jugadores Pie "+jugadores.get(this.pies[0]).getApodo());
+		this.notificarObservers("Jugadores Pie "+jugadores.get(this.pies[1]).getApodo());
 		System.out.println();
 		
 		
@@ -62,15 +72,17 @@ public class ManoTruco {
 			this.asignarTurno();
 			
 			for(int i=0;i<4;i++){
-				System.out.print("Cartas jugador "+jugadores.get(i).getApodo()+": ");
+			//	System.out.print("Cartas jugador "+jugadores.get(i).getApodo()+": ");
 				//this.estados[i].mostrarCartasDisponibles();
-				this.estadoMano.mostrarCartasDisponiblesJugador(i);
+			//	this.estadoMano.mostrarCartasDisponiblesJugador(i);
+				this.notificarObserver(i, this.estadoMano.getCartasJugadorString(i));
 				
 			}
 			
 			System.out.println();
 			
-			System.out.println("Inicio baza "+this.nroBaza);
+		//	System.out.println("Inicio baza "+(this.nroBaza+1));
+			this.notificarObservers("Inicio baza "+(this.nroBaza+1));
 			for(int i=0;i<4;i++){
 				this.comienzaTurno();
 				
@@ -92,9 +104,12 @@ public class ManoTruco {
 		
 	}
 	private void comienzaTurno() {
-		System.out.println("Comienza turno de "+jugadores.get(turno).getApodo());
+		this.notificarObservers("Comienza turno de "+jugadores.get(turno).getApodo());
+	//	System.out.println("Comienza turno de "+jugadores.get(turno).getApodo());
 		//this.estados[turno].mostrarCartasDisponibles();
-		this.estadoMano.mostrarCartasDisponiblesJugador(turno);
+	//	this.estadoMano.mostrarCartasDisponiblesJugador(turno);
+		
+		this.notificarObserver(turno, this.estadoMano.getCartasDisponiblesJugadorString(turno));
 		
 		
 		int posicion=-1;
@@ -119,6 +134,7 @@ public class ManoTruco {
 		
 		//this.estados[turno].jugarCarta(c);
 		this.estadoMano.jugarCarta(turno,c);
+		this.notificarObservers("Jugo "+c.getString());
 		
         
 		
