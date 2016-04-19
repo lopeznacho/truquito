@@ -1,6 +1,6 @@
 package negocio;
 
-public class Partido {
+public class Partido extends Thread{
 
 	private String modalidad;
 	private Equipo[] equipos;
@@ -13,6 +13,10 @@ public class Partido {
 		this.ganados = new int[2];
 		this.modalidad = modalidad;
 		this.setEquipos(equipo1,equipo2);
+		/*this.iniciarPartido();*/
+	}
+	
+	public void run(){
 		this.iniciarPartido();
 	}
 

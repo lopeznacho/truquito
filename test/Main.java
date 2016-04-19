@@ -22,8 +22,10 @@ public class Main {
 		
 		//new VentanaPersonas(1);
 		
-		Partido partido = new Partido(equipo1, equipo2,"Modalidad 1");
+	//	Partido partido = new Partido(equipo1, equipo2,"Modalidad 1");
+		(new Partido(equipo1,equipo2,"Modalidad 1")).start();
 		
+		(new Partido(equipo1,equipo2,"Modalidad 1")).start();
 
 	}
 
