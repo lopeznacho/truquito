@@ -84,7 +84,12 @@ public class ManoTruco extends Observable{
 		//	System.out.println("Inicio baza "+(this.nroBaza+1));
 			this.notificarObservers("Inicio baza "+(this.nroBaza+1));
 			for(int i=0;i<4;i++){
-				this.comienzaTurno();
+				try {
+					this.comienzaTurno();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				this.siguienteTurnoBaza();
 				
@@ -103,14 +108,14 @@ public class ManoTruco extends Observable{
 			
 		
 	}
-	private void comienzaTurno() {
+	public synchronized void comienzaTurno() throws InterruptedException {
 		this.notificarObservers("Comienza turno de "+jugadores.get(turno).getApodo());
 	//	System.out.println("Comienza turno de "+jugadores.get(turno).getApodo());
 		//this.estados[turno].mostrarCartasDisponibles();
 	//	this.estadoMano.mostrarCartasDisponiblesJugador(turno);
 		
 		this.notificarObserver(turno, this.estadoMano.getCartasDisponiblesJugadorString(turno));
-		
+		//wait();
 		
 		int posicion=-1;
 		do{
